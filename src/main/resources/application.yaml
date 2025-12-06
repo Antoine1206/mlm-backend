@@ -1,3 +1,10 @@
 spring:
-  application:
-    name: backend
+  datasource:
+    url: jdbc:postgresql://localhost:5433/mlm_bdd
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

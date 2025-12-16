@@ -1,10 +1,27 @@
 spring:
   datasource:
+    # 📍 Adresse bdd PostgreSQL
+    # mlm_bdd = nom bdd
     url: jdbc:postgresql://localhost:5433/mlm_bdd
     username: postgres
     password: root
+    # 🚗 Driver JDBC pour PostgreSQL (permet à Java de parler avec PostgreSQL)
     driver-class-name: org.postgresql.Driver
+
+  flyway:
+    # ✅ Active Flyway au démarrage de l'application
+    # Flyway va chercher et exécuter les scripts SQL
+    enabled: true
+    # Permet de rajouter des Flyway
+    baseline-on-migrate: true
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+      # Afficher les logs de Hibernate
     show-sql: true
+
+logging:
+  # Je sais pas trop
+  level:
+    org.flywaydb: DEBUG

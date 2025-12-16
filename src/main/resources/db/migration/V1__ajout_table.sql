@@ -9,19 +9,15 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users
 (
     id         SERIAL PRIMARY KEY,
-    email      VARCHAR(150) UNIQUE NOT NULL,
-    password   VARCHAR(255)        NOT NULL,
-    first_name VARCHAR(100),
-    last_name  VARCHAR(100),
-    created_at DATE    DEFAULT CURRENT_DATE,
-    active     BOOLEAN DEFAULT TRUE
+    email      VARCHAR(50) UNIQUE NOT NULL,
+    first_name VARCHAR(25),
+    last_name  VARCHAR(25),
+    created_at DATE    DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE owner
 (
     id                INTEGER PRIMARY KEY,
-    iban              VARCHAR(34),
-    identity_document VARCHAR(255),
     CONSTRAINT fk_owner_user FOREIGN KEY (id) REFERENCES users (id)
 );
 
@@ -29,8 +25,8 @@ CREATE TABLE tenant
 (
     id             INTEGER PRIMARY KEY,
     phone_number   VARCHAR(20),
-    profession     VARCHAR(100),
-    monthly_income NUMERIC(10, 2),
+    profession     VARCHAR(50),
+    monthly_income INTEGER,
     CONSTRAINT fk_tenant_user FOREIGN KEY (id) REFERENCES users (id)
 );
 
@@ -39,12 +35,12 @@ CREATE TABLE property
     id          SERIAL PRIMARY KEY,
     title       VARCHAR(150),
     description TEXT,
-    address     VARCHAR(255),
-    city        VARCHAR(100),
+    address     VARCHAR(100),
+    city        VARCHAR(20),
     postal_code VARCHAR(10),
-    surface     NUMERIC(6, 2),
-    rent        NUMERIC(10, 2),
-    charges     NUMERIC(10, 2),
+    surface     INTEGER,
+    rent        INTEGER,
+    charges     INTEGER,
     available   BOOLEAN DEFAULT TRUE,
     owner_id    INTEGER,
     CONSTRAINT fk_property_owner FOREIGN KEY (owner_id) REFERENCES owner (id)
@@ -55,8 +51,8 @@ CREATE TABLE rental_contract
     id           SERIAL PRIMARY KEY,
     start_date   DATE,
     end_date     DATE,
-    monthly_rent NUMERIC(10, 2),
-    deposit      NUMERIC(10, 2),
+    monthly_rent INTEGER,
+    deposit      INTEGER,
     status       VARCHAR(20),
     tenant_id    INTEGER,
     property_id  INTEGER,
@@ -67,10 +63,9 @@ CREATE TABLE rental_contract
 CREATE TABLE payment
 (
     id             SERIAL PRIMARY KEY,
-    amount         NUMERIC(10, 2),
+    amount         INTEGER,
     payment_date   DATE,
     status         VARCHAR(20),
-    transaction_id VARCHAR(100),
     contract_id    INTEGER,
     CONSTRAINT fk_payment_contract FOREIGN KEY (contract_id) REFERENCES rental_contract (id)
 );

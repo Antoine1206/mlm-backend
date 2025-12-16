@@ -14,6 +14,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    //todo : A faire
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 
